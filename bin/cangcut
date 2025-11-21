@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+require_relative '../lib/cangcut_ru'
+
+
+cmd = ARGV.shift
+
+
+case cmd
+when "to-int"
+puts CangcutRu.to_int(ARGV[0]).inspect
+
+
+when "split"
+puts CangcutRu.split(ARGV[0], ARGV[1]).inspect
+
+
+when "uniq"
+puts CangcutRu.uniq_list(ARGV).inspect
+
+
+when "sha256"
+puts CangcutRu.sha256(ARGV.join(" "))
+
+
+when "pretty-json"
+input = STDIN.read
+begin
+obj = JSON.parse(input)
+puts CangcutRu.pretty_json(obj)
+rescue JSON::ParserError
+warn "Invalid JSON"
+end
+
+
+else
+puts "Perintah tidak dikenal."
+puts "Daftar perintah:"
+puts " to-int <text>"
+puts " split <delimiter> <string>"
+puts " uniq <list items>"
+puts " sha256 <text>"
+puts " pretty-json < input-file.json>"
+end
